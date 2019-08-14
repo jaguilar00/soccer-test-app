@@ -6,7 +6,7 @@ final FULL_BUILD = true
 final HOST_PROVISION = params.HOST_PROVISION
 
 final GIT_URL = 'https://github.com/jaguilar00/soccer-test-app.git'
-final NEXUS_URL = 'nexus.local:8081'
+final NEXUS_URL = '192.168.56.5:8081'
 
 stage('Build') {
     node {
@@ -87,7 +87,7 @@ if(FULL_BUILD) {
                 nexusUrl: NEXUS_URL, 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: 'ansible-meetup', 
+                repository: 'soccer-test-app',
                 version: "${pom.version}"        
         }
     }
