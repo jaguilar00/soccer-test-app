@@ -122,7 +122,7 @@ stage('Deploy') {
             inventory: 'provision/inventory.ini', 
             playbook: 'provision/playbook.yml', 
             become: true,
-            sudoUser: 'jenkins'
+            becomeUser: 'jenkins'
         }
     }
 }
