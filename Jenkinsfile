@@ -3,7 +3,7 @@
 // FULL_BUILD -> true/false build parameter to define if we need to run the entire stack for lab purpose only
 final FULL_BUILD = true
 // HOST_PROVISION -> server to run ansible based on provision/inventory.ini
-final HOST_PROVISION = params.HOST_PROVISION
+final HOST_PROVISION = "app.local"
 
 final GIT_URL = 'https://github.com/jaguilar00/soccer-test-app.git'
 final NEXUS_URL = '192.168.56.5:8081'
@@ -103,11 +103,11 @@ stage('Deploy') {
         def version = pom.version
 
         if(!FULL_BUILD) { //takes the last version from repo
-            sh "curl -o metadata.xml -s http://${NEXUS_URL}/repository/ansible-meetup/${repoPath}/maven-metadata.xml"
+            sh "curl -o metadata.xml -s http://${NEXUS_URL}/repository/soccer-test-app/${repoPath}/maven-metadata.xml"
             version = sh script: 'xmllint metadata.xml --xpath "string(//latest)"',
                          returnStdout: true
         }
-        def artifactUrl = "http://${NEXUS_URL}/repository/ansible-meetup/${repoPath}/${version}/${pom.artifactId}-${version}.war"
+        def artifactUrl = "http://${NEXUS_URL}/repository/soccer-test-app/${repoPath}/${version}/${pom.artifactId}-${version}.war"
 
         withEnv(["ARTIFACT_URL=${artifactUrl}", "APP_NAME=${pom.artifactId}"]) {
             echo "The URL is ${env.ARTIFACT_URL} and the app name is ${env.APP_NAME}"
