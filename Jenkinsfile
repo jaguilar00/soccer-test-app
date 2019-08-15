@@ -122,7 +122,11 @@ stage('Deploy') {
             inventory: 'provision/inventory.ini', 
             playbook: 'provision/playbook.yml', 
             become: true,
-            becomeUser: 'jenkins'
+            becomeUser: 'jenkins',
+            extraVars: [
+                    ARTIFACT_URL: '${artifactUrl}',
+                    APP_NAME:'${APP_NAME}'
+            ]
         }
     }
 }
